@@ -1,0 +1,19 @@
+import express from "express";
+import { verifyKeyMiddleware } from "discord-interactions";
+
+const app = express();
+app.use(express.json());
+
+const PUBLIC_KEY = "YOUR_DISCORD_PUBLIC_KEY"; // Replace this with your actual public key from Discord Developer Portal
+
+app.post("/interactions", verifyKeyMiddleware(PUBLIC_KEY), (req, res) => {
+  const interaction = req.body;
+
+  if (interaction.type === 1) {
+    return res.send({ type: 1 }); // Respond to Discord's PING
+  }
+
+  // You can handle other interactions here later
+});
+
+app.listen(3000, () => console.log("Voidzkeeper backend is live"));
